@@ -1,7 +1,7 @@
 #![doc(html_root_url="https://docs.rs/phf_shared/0.7.20")]
-#![cfg_attr(feature = "core", no_std)]
+#![cfg_attr(not(feature = "std"), no_std)]
 
-#[cfg(not(feature = "core"))]
+#[cfg(feature = "std")]
 extern crate std as core;
 
 extern crate siphasher;
@@ -63,7 +63,7 @@ pub trait PhfHash {
     }
 }
 
-#[cfg(not(feature = "core"))]
+#[cfg(feature = "std")]
 impl PhfHash for String {
     #[inline]
     fn phf_hash<H: Hasher>(&self, state: &mut H) {
@@ -71,7 +71,7 @@ impl PhfHash for String {
     }
 }
 
-#[cfg(not(feature = "core"))]
+#[cfg(feature = "std")]
 impl PhfHash for Vec<u8> {
     #[inline]
     fn phf_hash<H: Hasher>(&self, state: &mut H) {
